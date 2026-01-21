@@ -410,10 +410,6 @@ if [ -n "$AUTO_DISCOVERY_KEY" ] && [ -n "$ENDPOINT" ]; then
     if [ -z "$HTTP_SERVER" ]; then
         HTTP_SERVER="$ENDPOINT"
     fi
-    if [ -z "$WS_SERVER" ]; then
-        # 将 http:// 替换为 ws://，https:// 替换为 wss://
-        WS_SERVER=$(echo "$ENDPOINT" | sed 's|^http://|ws://|' | sed 's|^https://|wss://|')
-    fi
     
 elif [ -n "$HTTP_SERVER" ] && [ -n "$TOKEN" ]; then
     log_config "配置模式: ${GREEN}传统 Token${NC}"
@@ -610,10 +606,6 @@ build_exec_command() {
     
     if [ -n "$HTTP_SERVER" ]; then
         cmd="$cmd --http-server \"$HTTP_SERVER\""
-    fi
-    
-    if [ -n "$WS_SERVER" ]; then
-        cmd="$cmd --ws-server \"$WS_SERVER\""
     fi
     
     if [ -n "$TOKEN" ]; then
